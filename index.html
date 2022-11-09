@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"> <!-- displays site properly based on user's device -->
+  <link rel="icon" type="image/png" sizes="32x32" href="./images/favicon-32x32.png">
+  <title>Frontend Mentor | Interactive rating component</title>
+  <link rel="stylesheet" href="./styles/style.css">
+</head>
+<body>
+  <main>
+    <section class="support-request" id="rating-result">
+      <div class="star">
+        <img src="./images/icon-star.svg" alt="icon star">
+      </div>
+      <div class="desc">
+        <h1>How did we do?</h1>
+        <p>Please let us know how did with your support request. All feedback is appreciated to help us improve our offering!</p>
+      </div>
+      <div class="scale-rating">
+        <div class="one">
+          <p>1</p>
+        </div>
+        <div class="two">
+          <p>2</p>
+        </div>
+        <div class="three">
+          <p>3</p>
+        </div>
+        <div class="four">
+          <p>4</p>
+        </div>
+        <div class="five">
+          <p>5</p>
+        </div>
+      </div>
+      <div class="btn-submit" id="btn-submitId">
+        <button>SUBMIT</button>
+      </div>
+    </section>
+    <section class="thank-you" id="submit-result">
+      <div class="result-rating" id="result-ratingId">
+        <img id="img-ilustration" src="./images/illustration-thank-you.svg" alt="ilustration thank you">
+      </div>
+      <div class="appreciate">
+        <h2>Thank You!</h2>
+        <p>We appreciate you taking the time to give a rating. If you ever need more support, don't hesitate to get in touch!</p>
+      </div>
+    </section>
+  </main>
+  <script>
+    const ratingClicked = document.querySelectorAll('.scale-rating div');
+    const ratingResult = document.getElementById("rating-result");
+    const btnSubmitId = document.getElementById("btn-submitId");
+    const submitResult = document.getElementById("submit-result");
+    const resultRatingId = document.getElementById("result-ratingId");
+    const imgIlustration = document.getElementById("img-ilustration");
+
+    let getRating;
+
+    for (let i = 0; i < ratingClicked.length; i++) {
+      ratingClicked[i].addEventListener('click', function(e) {
+
+        const active = document.querySelector('.scale-rating .active');
+        if (active) {
+          active.classList.remove("active");
+        }
+
+        ratingClicked[i].classList.add("active");
+
+        getRating = parseInt(ratingClicked[i].textContent);
+      });
+    }
+
+    btnSubmitId.addEventListener('click', function(e) {
+      if (getRating) {
+        ratingResult.style.display = "none";
+        submitResult.style.display = "block"
+
+        const paragraph = document.createElement("p");
+        const paragraphValue = document.createTextNode(`You selected ${getRating} out of 5`);
+        paragraph.appendChild(paragraphValue);
+        
+        resultRatingId.insertBefore(paragraph, imgIlustration);
+      } else {
+        alert("Please choose the number below first!")
+      }
+    });
+
+  </script>
+</body>
+</html>
